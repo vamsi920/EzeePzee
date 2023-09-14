@@ -1,0 +1,15 @@
+{
+    "name": "EzPz",
+    "version": "1.0.0",
+    "description": "For personal usage",
+    "manifest_version": 3,
+    "author": "Vamsi",
+    "action":{
+        "default_popup": "index.html",
+        "default_title": "EzPz"
+    },
+    "content-scripts": {
+        "matches": ["https://www.linkedin.com/in/*"],
+        "js": ["content.js"]
+    }
+}
