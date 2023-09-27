@@ -1,0 +1,26 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+  }
+  
+  #apply {
+    background-color: #3498db;
+    color: white;
+    padding: 10px 20px; /* Adjust padding for button size */
+    font-size: 14px; /* Adjust font size for button text */
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    display: inline-block; /* Display inline-block to fit the entire text */
+  }
+  
+  #apply:hover {
+    background-color: #2980b9;
+  }
+  
+  #result {
+    font-size: 16px; /* Adjust font size for the result text */
+    color: #333;
+  }
+  
