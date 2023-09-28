@@ -28,11 +28,18 @@ chrome.runtime.onMessage.addListener((message) => {
     console.log("Received message in popup:", message);
   });
 document.getElementById('apply').addEventListener('click', ()=> {
-    console.log('clicked');
+    console.log('clicked here');
+    // let x = '/html/body/div[6]/div[3]/div/div/div[2]/div/div/main/section[1]/div[2]/div[3]/div/button';
+    // const getElementFromXpath = path =>{
+    //     return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
+    // }
+    // console.log(getElementFromXpath(x));
+    
+
     
     chrome.tabs.query({active: true, currentWindow: true}, (tabs)=> {
         // sending the message to the content script
-        
+        chrome.tabs.sendMessage(tabs[0].id, 'clicked');
         //chrome.tabs.sendMessage(tabs[0].id, 'clicked');
     });
     }, false);
