@@ -24,8 +24,15 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 }
 chrome.runtime.onMessage.addListener((message) => {
+  if(message.dist ==1){
+    // blocking the button if this condition is true
+    document.getElementById('apply').disabled = true;
+
+  }
+  
     document.getElementById('result').innerText = message.name;
     console.log("Received message in popup:", message);
+    
   });
 document.getElementById('apply').addEventListener('click', ()=> {
     console.log('clicked here');
@@ -34,8 +41,6 @@ document.getElementById('apply').addEventListener('click', ()=> {
     //     return document.evaluate(path, document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null).singleNodeValue;
     // }
     // console.log(getElementFromXpath(x));
-    
-
     
     chrome.tabs.query({active: true, currentWindow: true}, (tabs)=> {
         // sending the message to the content script

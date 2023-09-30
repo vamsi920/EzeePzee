@@ -1,4 +1,20 @@
+// import message from './message.json'
 var profileName = document.getElementsByClassName('text-heading-xlarge')[0];
+var connectionNumber = document.getElementsByClassName('distance-badge')[0]
+console.log(connectionNumber.innerText.toString().includes('1'));
+if(connectionNumber.innerText.includes('1st')){
+  connectionNumber = 1
+}
+else if(connectionNumber.innerText.includes('2nd')){
+  connectionNumber = 2
+}
+else if(connectionNumber.innerText.includes('3rd')){
+  connectionNumber = 3
+}
+else{
+  connectionNumber = 4
+}
+
 if (profileName) {
   console.log(profileName.innerText);
 } else {
@@ -10,72 +26,72 @@ function getRandomTimeout() {
 }
 // recieving the messge sent from background.js
 chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
-  // if (request == "clicked") {
-  //   // setting the profile name to vamsi
+  if (request === "clicked") {
+    const getRandomTime = () => {
+      // Generate a random time between 0.5 and 1.99 seconds
+      return Math.random() * (1.99 - 0.5) + 0.5;
+    };
 
-  //   let connectButton = document.getElementsByClassName('artdeco-button artdeco-button--2 artdeco-button--primary ember-view pvs-profile-actions__action')[0];
-  //   if (connectButton.innerText == 'Connect') {
-  //     connectButton.click();
-  //   }
-  //   else {
-  //     let moreButton = document.getElementsByClassName('artdeco-dropdown__trigger artdeco-dropdown__trigger--placement-bottom ember-view pvs-profile-actions__action artdeco-button artdeco-button--secondary artdeco-button--muted artdeco-button--1 artdeco-button--circle')[0]
-  //     moreButton.click();
-  //     let moreButtons = document.getElementsByClassName('artdeco-dropdown__item artdeco-dropdown__item--is-dropdown ember-view full-width display-flex align-items-center')
-  //     moreButtons[2].click();
-  //     moreButtons[7].click()
-  //   }
-  //   // now adding a note for connection request
-  //   let addNoteButton = document.getElementsByClassName('artdeco-button artdeco-button--muted artdeco-button--2 artdeco-button--secondary ember-view mr1')[0];
-  //   addNoteButton.click();
-  //   let noteTextArea = document.getElementsByClassName('ember-text-area ember-view connect-button-send-invite__custom-message mb3')[0];
-  //   noteTextArea.value = 'Hi, I am Vamsi, I am a software developer. I am looking for a job. Please accept my connection request. Thank you.'
-  //   let sendButton = document.getElementsByClassName('artdeco-button artdeco-button--2 artdeco-button--primary ember-view ml1')[0];
-  //   sendButton.click();
-  //   console.log('submitted')
+    const clickConnectButton = () => {
+      const connectButton = document.querySelector('.artdeco-button.artdeco-button--2.artdeco-button--primary.ember-view.pvs-profile-actions__action');
+      if (connectButton && connectButton.innerText === 'Connect') {
+        connectButton.click();
+      }
+      // Add a random time gap before the next action
+      setTimeout(clickMoreButton, getRandomTime() * 1000);
+    };
 
-  // }
-  if (request == "clicked") {
-    // setting the profile name to vamsi
-  
-    let connectButton = document.getElementsByClassName('artdeco-button artdeco-button--2 artdeco-button--primary ember-view pvs-profile-actions__action')[0];
-    if (connectButton.innerText == 'Connect') {
-      connectButton.click();
-    } else {
-      let moreButton = document.getElementsByClassName('artdeco-dropdown__trigger artdeco-dropdown__trigger--placement-bottom ember-view pvs-profile-actions__action artdeco-button artdeco-button--secondary artdeco-button--muted artdeco-button--1 artdeco-button--circle')[0];
-      moreButton.click();
-      let moreButtons = document.getElementsByClassName('artdeco-dropdown__item artdeco-dropdown__item--is-dropdown ember-view full-width display-flex align-items-center');
-  
-      setTimeout(() => {
+    const clickMoreButton = () => {
+      let moreButton = document.querySelector('.artdeco-dropdown__trigger.artdeco-dropdown__trigger--placement-bottom.ember-view.pvs-profile-actions__action.artdeco-button.artdeco-button--secondary.artdeco-button--muted.artdeco-button--1.artdeco-button--circle');
+      if (!moreButton) {
+        moreButton = document.querySelector('.artdeco-dropdown.artdeco-dropdown--placement-bottom.artdeco-dropdown--justification-left.ember-view');
+      }
+      if (moreButton) {
+        moreButton.click();
+      }
+      // Add a random time gap before the next action
+      setTimeout(clickMoreItem, getRandomTime() * 1000);
+    };
+
+    const clickMoreItem = () => {
+      const moreButtons = document.querySelectorAll('.artdeco-dropdown__item.artdeco-dropdown__item--is-dropdown.ember-view.full-width.display-flex.align-items-center');
+      if (moreButtons[2]) {
         moreButtons[2].click();
-      }, getRandomTimeout());
-  
-      setTimeout(() => {
-        moreButtons[7].click();
-      }, getRandomTimeout());
-    }
-  
-    // now adding a note for connection request
-    let addNoteButton = document.getElementsByClassName('artdeco-button artdeco-button--muted artdeco-button--2 artdeco-button--secondary ember-view mr1')[0];
-    addNoteButton.click();
-  
-    let noteTextArea = document.getElementsByClassName('ember-text-area ember-view connect-button-send-invite__custom-message mb3')[0];
-    noteTextArea.value = 'Hi, I am Vamsi, I am a software developer. I am looking for a job. Please accept my connection request. Thank you.';
-  
-    setTimeout(() => {
-      let sendButton = document.getElementsByClassName('artdeco-button artdeco-button--2 artdeco-button--primary ember-view ml1')[0];
-      sendButton.click();
-      console.log('submitted');
-    }, getRandomTimeout());
+      }
+      // Add a random time gap before the next action
+      setTimeout(addNoteAndSend, getRandomTime() * 1000);
+    };
+
+    const addNoteAndSend = () => {
+      const addNoteButton = document.querySelector('.artdeco-button.artdeco-button--muted.artdeco-button--2.artdeco-button--secondary.ember-view.mr1');
+      if (addNoteButton) {
+        addNoteButton.click();
+        const noteTextArea = document.querySelector('.ember-text-area.ember-view.connect-button-send-invite__custom-message.mb3');
+        if (noteTextArea) {
+          noteTextArea.value = "Let me be honest " + profileName.innerHTML.split(" ")[0] + ", \nYour one referral could save me (a software developer) from this challenging market. Let's help each other in our careers. A referral or tip to get into your company would really help. ";
+          const sendButton = document.querySelector('.artdeco-button.artdeco-button--2.artdeco-button--primary.ember-view.ml1');
+          if (sendButton) {
+            sendButton.click();
+            console.log('Connection request submitted.');
+          }
+        }
+      }
+    };
+
+    // Start the process by clicking the connect button
+    setTimeout(clickConnectButton, getRandomTime() * 1000);
   }
   if (request == "rendered") {
     // sending the profile name to background.js
-    chrome.runtime.sendMessage({ name: profileName.innerText }, resp => {
+    chrome.runtime.sendMessage({ name: profileName.innerText,
+      dist: connectionNumber,
+     }, resp => {
       // console.log(resp)
     })
   }
 });
 
 
-chrome.runtime.sendMessage({ name: profileName.innerText }, resp => {
+chrome.runtime.sendMessage({ name: profileName.innerText, dist:connectionNumber }, resp => {
   // console.log(resp)
 })
