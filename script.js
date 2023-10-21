@@ -65,17 +65,24 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     const addNoteAndSend = () => {
       const addNoteButton = document.querySelector('.artdeco-button.artdeco-button--muted.artdeco-button--2.artdeco-button--secondary.ember-view.mr1');
       if (addNoteButton) {
+        
         addNoteButton.click();
         const noteTextArea = document.querySelector('.ember-text-area.ember-view.connect-button-send-invite__custom-message.mb3');
+
         if (noteTextArea) {
-          noteTextArea.value = "Hi " + profileName.innerHTML.split(" ")[0] + ", \nLets connect. ";
+          
+          noteTextArea.value = "Let me be honest " + profileName.innerHTML.split(" ")[0] + ", \nYour one referral could save me (a software developer) from this challenging market. Let's help each other in our careers. A referral or tip to get into your company would really help.";
           const sendButton = document.querySelector('.artdeco-button.artdeco-button--2.artdeco-button--primary.ember-view.ml1');
           if (sendButton) {
             sendButton.click();
             console.log('Connection request submitted.');
           }
         }
+        else{
+          console.log('error finding the text area')
+        }
       }
+      
     };
 
     // Start the process by clicking the connect button
