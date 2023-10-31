@@ -65,26 +65,31 @@ chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
     const addNoteAndSend = () => {
       const addNoteButton = document.querySelector('.artdeco-button.artdeco-button--muted.artdeco-button--2.artdeco-button--secondary.ember-view.mr1');
       if (addNoteButton) {
-        
         addNoteButton.click();
-        const noteTextArea = document.querySelector('.ember-text-area.ember-view.connect-button-send-invite__custom-message.mb3');
+    
+        setTimeout(() => {
+          const noteTextArea = document.querySelector('.ember-text-area.ember-view.connect-button-send-invite__custom-message.mb3');
+    
+          if (noteTextArea) {
+            noteTextArea.value = "hi " + profileName.innerHTML.split(" ")[0] + ", here is my message.";
+            setTimeout(() => {
 
-        if (noteTextArea) {
-          
-          noteTextArea.value = "Hi..  " + profileName.innerHTML.split(" ")[0] + ".. write your message here";
-          
-          const sendButton = document.querySelector('.artdeco-button.artdeco-button--2.artdeco-button--primary.ember-view.ml1');
-          if (sendButton) {
-            sendButton.click();
-            console.log('Connection request submitted.');
+            const sendButton = document.querySelector('.artdeco-button.artdeco-button--2.artdeco-button--primary.ember-view.ml1');
+            if (sendButton) {
+              sendButton.click();
+              console.log('Connection request submitted.');
+            } else {
+              console.log('Error finding the send button');
+            }
           }
-        }
-        else{
-          console.log('error finding the text area')
-        }
+          , 1200); // Adjust the delay as needed
+          } else {
+            console.log('Error finding the text area');
+          }
+        }, 1000); // Adjust the delay as needed
       }
-      
     };
+    
 
     // Start the process by clicking the connect button
     setTimeout(clickConnectButton, getRandomTime() * 1000);
